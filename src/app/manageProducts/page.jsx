@@ -17,7 +17,9 @@ export default function ManageProducts() {
   const loadProducts = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/products");
+      const res = await fetch(
+        "https://eco-mart-server-lyart.vercel.app/products"
+      );
       const data = await res.json();
       setProducts(data.products || []);
     } catch (err) {
@@ -45,9 +47,12 @@ export default function ManageProducts() {
     if (!confirm.isConfirmed) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/products/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://eco-mart-server-lyart.vercel.app/products/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = await res.json();
       if (data.success) {
         Swal.fire("Deleted!", data.message, "success");
@@ -110,11 +115,14 @@ export default function ManageProducts() {
     if (!formValues) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/products/${product._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formValues),
-      });
+      const res = await fetch(
+        `https://eco-mart-server-lyart.vercel.app/products/${product._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formValues),
+        }
+      );
       const data = await res.json();
       if (data.success) {
         Swal.fire("Updated!", "Product has been updated.", "success");

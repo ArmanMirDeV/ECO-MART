@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useUser, RedirectToSignIn } from "@clerk/nextjs";
 import Loader from "@/components/Loader";
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
 
 export default function AddProduct() {
   const { isLoaded, isSignedIn } = useUser();
@@ -27,7 +27,7 @@ export default function AddProduct() {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/products", {
+      const res = await fetch("https://eco-mart-server-lyart.vercel.app/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -50,7 +50,6 @@ export default function AddProduct() {
 
   return (
     <div className="max-w-xl mx-auto p-6 text-black">
-      <Toaster position="top-right" reverseOrder={false} />
       <h1 className="text-2xl font-semibold mb-4 text-black">
         Add New Product
       </h1>

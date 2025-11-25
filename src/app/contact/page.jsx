@@ -1,7 +1,8 @@
 "use client";
+import Loader from "@/Components/Loader";
 import React, { useState } from "react";
-import Loader from "@/components/Loader"; // import your loader
-import toast, { Toaster } from "react-hot-toast";
+// import Loader from "@/components/Loader"; // import your loader
+// import toast, { Toaster } from "react-hot-toast";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -34,7 +35,6 @@ const ContactPage = () => {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <Toaster position="top-right" reverseOrder={false} />
 
       {/* Hero Section */}
       <section className="bg-green-600 text-white py-20 text-center">

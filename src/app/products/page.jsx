@@ -14,7 +14,9 @@ const ProductsPage = () => {
     const loadProducts = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:5000/products");
+        const res = await fetch(
+          "https://eco-mart-server-lyart.vercel.app/products"
+        );
         const data = await res.json();
         setProducts(data.products || []);
       } catch (error) {
