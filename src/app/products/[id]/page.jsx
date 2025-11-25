@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 const ProductDetailsPage = () => {
-  const { id } = useParams(); 
-  console.log(id);
-  
+  const { id } = useParams();
   const router = useRouter();
 
   const [product, setProduct] = useState(null);
@@ -15,6 +13,7 @@ const ProductDetailsPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        setLoading(true);
         const res = await fetch(`http://localhost:5000/products/${id}`);
         const data = await res.json();
         setProduct(data.product || null);
@@ -28,7 +27,24 @@ const ProductDetailsPage = () => {
     fetchProduct();
   }, [id]);
 
-  if (loading) return <p className="text-center py-20">Loading...</p>;
+  if (loading)
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-4">
+        {/* Skeleton Loader */}
+        <div className="animate-pulse space-y-4 w-full max-w-4xl">
+          <div className="w-full h-96 bg-gray-300 rounded-lg mx-auto"></div>
+          <div className="h-8 bg-gray-300 rounded w-3/4 mx-auto"></div>
+          <div className="h-4 bg-gray-300 rounded w-full mx-auto"></div>
+          <div className="h-4 bg-gray-300 rounded w-5/6 mx-auto"></div>
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            <div className="h-6 bg-gray-300 rounded w-1/4"></div>
+            <div className="h-6 bg-gray-300 rounded w-1/4"></div>
+            <div className="h-6 bg-gray-300 rounded w-1/4"></div>
+          </div>
+        </div>
+      </div>
+    );
+
   if (!product)
     return <p className="text-center py-20 text-red-500">Product not found.</p>;
 
@@ -49,7 +65,7 @@ const ProductDetailsPage = () => {
         <img
           src={product.imageUrl}
           alt={product.title}
-          className="w-96 h-96 object-cover rounded-lg shadow-md"
+          className="w-fit h-96 object-cover rounded-lg shadow-md mx-auto"
         />
       </div>
 

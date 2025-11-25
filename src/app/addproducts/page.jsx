@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { useUser, RedirectToSignIn } from "@clerk/nextjs";
+import Loader from "@/components/Loader";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AddProduct() {
   const { isLoaded, isSignedIn } = useUser();
   const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState("");
 
   // Redirect non-signed-in users
   if (isLoaded && !isSignedIn) return <RedirectToSignIn />;
@@ -14,7 +15,6 @@ export default function AddProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMsg("");
 
     const formData = {
       title: e.target.title.value,
@@ -22,7 +22,7 @@ export default function AddProduct() {
       fullDescription: e.target.fullDescription.value,
       price: Number(e.target.price.value),
       imageUrl: e.target.imageUrl.value,
-      category: e.target.category.value, // added category
+      category: e.target.category.value,
       addTime: new Date().toISOString(),
     };
 
@@ -36,13 +36,13 @@ export default function AddProduct() {
       const data = await res.json();
 
       if (data.success) {
-        setMsg("Product Added Successfully!");
+        toast.success("Product Added Successfully!");
         e.target.reset();
       } else {
-        setMsg("Something went wrong!");
+        toast.error("Something went wrong!");
       }
     } catch (error) {
-      setMsg("Server error!");
+      toast.error("Server error!");
     }
 
     setLoading(false);
@@ -50,6 +50,7 @@ export default function AddProduct() {
 
   return (
     <div className="max-w-xl mx-auto p-6 text-black">
+      <Toaster position="top-right" reverseOrder={false} />
       <h1 className="text-2xl font-semibold mb-4 text-black">
         Add New Product
       </h1>
@@ -110,13 +111,12 @@ export default function AddProduct() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-green-500 text-black py-2 rounded border border-black hover:bg-green-600"
+          className="w-full bg-green-500 text-black py-2 rounded border border-black hover:bg-green-600 flex justify-center items-center gap-2"
         >
+          {loading && <Loader />}
           {loading ? "Adding..." : "Add Product"}
         </button>
       </form>
-
-      {msg && <p className="mt-4 text-black font-medium">{msg}</p>}
     </div>
   );
 }

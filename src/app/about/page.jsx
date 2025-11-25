@@ -1,7 +1,22 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Loader from "@/Components/Loader";
 
 const AboutPage = () => {
+  const [loading, setLoading] = useState(true);
+
+  // Simulate loading delay (or fetch data here)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 800); // 0.8s delay for demonstration
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <Loader />;
+
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Hero Section */}

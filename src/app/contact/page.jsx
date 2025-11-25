@@ -1,26 +1,41 @@
 "use client";
 import React, { useState } from "react";
+import Loader from "@/components/Loader"; // import your loader
+import toast, { Toaster } from "react-hot-toast";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
-    name: "Your Name",
-    email: "something@gmail.com",
-    message: "Tell us what you wanna know",
+    name: "",
+    email: "",
+    message: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can add API call here to send the form data
-    alert(`Thank you, ${formData.name}! Your message has been sent.`);
-    setFormData({ name: "", email: "", message: "" });
+    setLoading(true);
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      toast.success(`Thank you, ${formData.name}! Your message has been sent.`);
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      toast.error("Failed to send message. Try again!");
+    }
+
+    setLoading(false);
   };
 
   return (
     <main className="min-h-screen bg-gray-50">
+      <Toaster position="top-right" reverseOrder={false} />
+
       {/* Hero Section */}
       <section className="bg-green-600 text-white py-20 text-center">
         <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
@@ -99,11 +114,14 @@ const ContactPage = () => {
                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-600"
               ></textarea>
             </div>
+
             <button
               type="submit"
-              className="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700 transition"
+              disabled={loading}
+              className="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700 transition flex justify-center items-center gap-2"
             >
-              Send Message
+              {loading && <Loader />}
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>
