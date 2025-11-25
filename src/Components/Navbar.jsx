@@ -19,7 +19,8 @@ const Navbar = () => {
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "Products", href: "/products" },
-    { name: "Add Products", href: "/addproducts" },
+    { name: "Add Products", href: "/addProducts" },
+    { name: "Manage Products", href: "/manageProducts" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
@@ -28,7 +29,7 @@ const Navbar = () => {
     <nav className="w-full m-1 rounded-2xl max-w-7xl mx-auto bg-white shadow">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-gray-800">
+        <Link href="/" className="text-2xl font-bold text-green-800">
           EcoMart
         </Link>
 

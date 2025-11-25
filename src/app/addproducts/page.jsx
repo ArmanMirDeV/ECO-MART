@@ -1,10 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useUser, RedirectToSignIn } from "@clerk/nextjs";
 
 export default function AddProduct() {
+  const { isLoaded, isSignedIn } = useUser();
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
+
+  // Redirect non-signed-in users
+  if (isLoaded && !isSignedIn) return <RedirectToSignIn />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,21 +23,26 @@ export default function AddProduct() {
       price: Number(e.target.price.value),
       imageUrl: e.target.imageUrl.value,
       category: e.target.category.value, // added category
+      addTime: new Date().toISOString(),
     };
 
-    const res = await fetch("http://localhost:5000/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const res = await fetch("http://localhost:5000/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (data.success) {
-      setMsg("Product Added Successfully!");
-      e.target.reset();
-    } else {
-      setMsg("Something went wrong!");
+      if (data.success) {
+        setMsg("Product Added Successfully!");
+        e.target.reset();
+      } else {
+        setMsg("Something went wrong!");
+      }
+    } catch (error) {
+      setMsg("Server error!");
     }
 
     setLoading(false);
@@ -65,7 +75,7 @@ export default function AddProduct() {
           name="fullDescription"
           placeholder="Full Description"
           className="w-full px-4 py-2 border border-black rounded text-black"
-          rows="4"
+          rows={4}
         ></textarea>
 
         <input
