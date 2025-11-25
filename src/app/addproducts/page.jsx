@@ -17,6 +17,7 @@ export default function AddProduct() {
       fullDescription: e.target.fullDescription.value,
       price: Number(e.target.price.value),
       imageUrl: e.target.imageUrl.value,
+      category: e.target.category.value, // added category
     };
 
     const res = await fetch("http://localhost:5000/products", {
@@ -82,6 +83,19 @@ export default function AddProduct() {
           className="w-full px-4 py-2 border border-black rounded text-black"
           required
         />
+
+        {/* Category Dropdown */}
+        <select
+          name="category"
+          className="w-full px-4 py-2 border border-black rounded text-black"
+          required
+        >
+          <option value="">Select Category</option>
+          <option value="smartphones">Smartphones</option>
+          <option value="laptops">Laptops</option>
+          <option value="accessories">Accessories</option>
+          <option value="home">Home</option>
+        </select>
 
         <button
           type="submit"
