@@ -1,5 +1,5 @@
 "use client";
-import Loader from "@/Components/Loader";
+// import Loader from "@/Components/Loader";
 import React, { useState } from "react";
 // import Loader from "@/components/Loader"; // import your loader
 // import toast, { Toaster } from "react-hot-toast";
@@ -120,7 +120,7 @@ const ContactPage = () => {
               disabled={loading}
               className="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700 transition flex justify-center items-center gap-2"
             >
-              {loading && <Loader />}
+              {loading && "Loading..."}
               {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
