@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useUser, RedirectToSignIn } from "@clerk/nextjs";
-import Loader from "@/components/Loader";
+// import Loader from "@/components/Loader";
 // import toast, { Toaster } from "react-hot-toast";
 
 export default function AddProduct() {
@@ -112,7 +112,7 @@ export default function AddProduct() {
           disabled={loading}
           className="w-full bg-green-500 text-black py-2 rounded border border-black hover:bg-green-600 flex justify-center items-center gap-2"
         >
-          {loading && <Loader />}
+          {loading && "loading..."}
           {loading ? "Adding..." : "Add Product"}
         </button>
       </form>
