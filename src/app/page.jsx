@@ -1,5 +1,6 @@
 import Banner from "@/Components/Banner";
 import Features from "@/Components/Features";
+import Testimonials from "@/Components/Testimonials";
 import Image from "next/image";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
 
       <Banner />
       <Features />
+      <Testimonials />
     </div>
   );
 }
