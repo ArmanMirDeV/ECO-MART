@@ -50,6 +50,18 @@ const ProductDetailsPage = () => {
   if (!product)
     return <p className="text-center py-20 text-red-500">Product not found.</p>;
 
+  const handleAddToCart = () => {
+    console.log("Add to Cart clicked:", product);
+    // TODO: implement cart logic
+    alert(`${product.title} added to cart!`);
+  };
+
+  const handleBuyNow = () => {
+    console.log("Buy Now clicked:", product);
+    // TODO: implement buy now logic
+    alert(`Proceeding to buy ${product.title}`);
+  };
+
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Back Button */}
@@ -92,6 +104,22 @@ const ProductDetailsPage = () => {
           <p className="text-gray-800 font-semibold">
             Category: <span className="text-gray-600">{product.category}</span>
           </p>
+        </div>
+
+        {/* Add to Cart and Buy Now Buttons */}
+        <div className="mt-8 flex flex-col sm:flex-row gap-4">
+          <button
+            onClick={handleAddToCart}
+            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition transform hover:scale-105"
+          >
+            Add to Cart
+          </button>
+          <button
+            onClick={handleBuyNow}
+            className="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg font-semibold transition transform hover:scale-105"
+          >
+            Buy Now
+          </button>
         </div>
       </div>
     </main>

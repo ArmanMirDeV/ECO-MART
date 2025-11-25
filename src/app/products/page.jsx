@@ -45,6 +45,13 @@ const ProductsPage = () => {
   // Skeleton Loader
   const skeletonArray = Array.from({ length: 8 });
 
+  // Add to Cart handler
+  const handleAddToCart = (product) => {
+    console.log("Add to Cart clicked:", product);
+    // TODO: connect to cart logic
+    alert(`${product.title} added to cart!`);
+  };
+
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Page Title & Short Description */}
@@ -110,25 +117,34 @@ const ProductsPage = () => {
                 className="w-full h-48 object-cover rounded-md"
               />
 
-              <div className="p-4">
+              <div className="p-4 flex flex-col gap-3">
                 <h3 className="text-lg font-semibold text-gray-800">
                   {product.title}
                 </h3>
 
-                <p className="text-gray-600 text-sm mt-2 line-clamp-2">
+                <p className="text-gray-600 text-sm line-clamp-2">
                   {product.shortDescription}
                 </p>
 
-                <p className="text-gray-700 font-medium mt-2">
+                <p className="text-gray-700 font-medium mt-1">
                   ৳ {product.price}
                 </p>
 
-                <Link
-                  href={`/products/${product._id}`}
-                  className="mt-4 bg-green-600 text-white w-32 h-12 flex items-center justify-center rounded-md font-semibold hover:bg-green-700 transition"
-                >
-                  View Details
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-2 mt-4">
+                  <Link
+                    href={`/products/${product._id}`}
+                    className="bg-green-600 text-white px-3 py-1.5 rounded-md font-semibold hover:bg-green-700 transition text-center flex-1 text-sm"
+                  >
+                    View Details
+                  </Link>
+
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="bg-black text-white px-3 py-1.5 rounded-md font-semibold hover:bg-gray-800 transition flex-1 text-sm"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
             </div>
           ))
