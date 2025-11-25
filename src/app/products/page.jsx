@@ -48,7 +48,7 @@ const ProductsPage = () => {
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-fill"
             />
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-800">
