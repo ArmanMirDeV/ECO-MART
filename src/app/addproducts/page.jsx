@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { useUser, RedirectToSignIn } from "@clerk/nextjs";
-// import Loader from "@/components/Loader";
-// import toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AddProduct() {
   const { isLoaded, isSignedIn } = useUser();
   const [loading, setLoading] = useState(false);
 
-  // Redirect non-signed-in users
+  // Redirect non-signed-in users to Clerk sign-in
   if (isLoaded && !isSignedIn) return <RedirectToSignIn />;
 
   const handleSubmit = async (e) => {
@@ -27,11 +26,14 @@ export default function AddProduct() {
     };
 
     try {
-      const res = await fetch("https://eco-mart-server-lyart.vercel.app/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://eco-mart-server-lyart.vercel.app/products",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await res.json();
 
@@ -50,6 +52,7 @@ export default function AddProduct() {
 
   return (
     <div className="max-w-xl mx-auto p-6 text-black">
+      <Toaster />
       <h1 className="text-2xl font-semibold mb-4 text-black">
         Add New Product
       </h1>
@@ -94,7 +97,6 @@ export default function AddProduct() {
           required
         />
 
-        {/* Category Dropdown */}
         <select
           name="category"
           className="w-full px-4 py-2 border border-black rounded text-black"
@@ -112,7 +114,6 @@ export default function AddProduct() {
           disabled={loading}
           className="w-full bg-green-500 text-black py-2 rounded border border-black hover:bg-green-600 flex justify-center items-center gap-2"
         >
-          {loading && "loading..."}
           {loading ? "Adding..." : "Add Product"}
         </button>
       </form>
